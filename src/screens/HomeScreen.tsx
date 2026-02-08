@@ -5,11 +5,15 @@ import { getCharacters } from "../services/rickAndMorty";
 import { Character } from "../types/character";
 import { CharacterCard } from "../components/CharacterCard";
 import { SearchBar } from "../components/SearchBar";
+import { StatusPicker } from "../components/StatusPicker";
 
 export function HomeScreen() {
+  const navigation = useNavigation<any>();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [search, setSearch] = useState("");
-  const navigation = useNavigation<any>();
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "Alive" | "Dead" | "unknown"
+  >("all");
 
   useEffect(() => {
     async function load() {
@@ -19,15 +23,20 @@ export function HomeScreen() {
     load();
   }, []);
 
-  const filtered = characters.filter(
-    (c) =>
+  const filtered = characters.filter((c) => {
+    const matchesSearch =
       c.name.toLowerCase().includes(search.toLowerCase()) ||
-      String(c.id).includes(search),
-  );
+      String(c.id).includes(search);
+
+    const matchesStatus = statusFilter === "all" || c.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <View style={styles.container}>
       <SearchBar value={search} onChange={setSearch} />
+      <StatusPicker value={statusFilter} onChange={setStatusFilter} />
 
       <FlatList
         data={filtered}
