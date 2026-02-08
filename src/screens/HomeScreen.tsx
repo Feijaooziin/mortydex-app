@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
 import { getCharacters } from "../services/rickAndMorty";
 import { Character } from "../types/character";
 import { CharacterCard } from "../components/CharacterCard";
@@ -22,6 +21,7 @@ export function HomeScreen() {
     <View style={styles.container}>
       <FlatList
         data={characters}
+        numColumns={2}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (

@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { Character } from "../types/character";
 import { getStatusColor } from "../utils/statusColor";
+import { Character } from "../types/character";
 
 type Props = {
   character: Character;
@@ -9,22 +9,20 @@ type Props = {
 
 export function CharacterCard({ character, onPress }: Props) {
   return (
-    <TouchableOpacity
-      style={[
-        styles.card,
-        { borderLeftColor: getStatusColor(character.status) },
-      ]}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
       <Image source={{ uri: character.image }} style={styles.image} />
 
-      <View style={styles.info}>
-        <Text style={styles.name}>{character.name}</Text>
-        <Text style={styles.sub}>
-          {character.species} • {character.status}
-        </Text>
-        <Text style={styles.location}>📍 {character.location.name}</Text>
+      <Text style={styles.name} numberOfLines={1}>
+        {character.name}
+      </Text>
+
+      <View
+        style={[
+          styles.statusBadge,
+          { backgroundColor: getStatusColor(character.status) },
+        ]}
+      >
+        <Text style={styles.statusText}>{character.status}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -32,45 +30,32 @@ export function CharacterCard({ character, onPress }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
+    width: "48%",
+    backgroundColor: "#FFF",
     borderRadius: 16,
-    padding: 12,
+    padding: 10,
     marginBottom: 12,
-    borderLeftWidth: 6,
+    marginHorizontal: "1%",
     elevation: 4,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
   },
-
   image: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: "100%",
+    height: 120,
+    borderRadius: 12,
   },
-
-  info: {
-    marginLeft: 12,
-    flex: 1,
-    justifyContent: "center",
-  },
-
   name: {
-    fontSize: 16,
     fontWeight: "700",
+    marginTop: 8,
   },
-
-  sub: {
-    fontSize: 13,
-    color: "#666",
-    marginTop: 2,
+  statusBadge: {
+    marginTop: 6,
+    paddingVertical: 4,
+    borderRadius: 10,
+    alignItems: "center",
   },
-
-  location: {
+  statusText: {
+    color: "#FFF",
     fontSize: 12,
-    color: "#888",
-    marginTop: 4,
+    fontWeight: "600",
   },
 });
