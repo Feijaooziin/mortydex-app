@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { getCharacters } from "../services/rickAndMorty";

@@ -1,80 +1,64 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet } from "react-native";
+import { RouteProp } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types/navigation";
+
+import { getCharacter } from "../services/rickAndMorty";
 import { Character } from "../types/character";
-import { getStatusColor } from "../utils/statusColor";
 
-type Props = {
-  character: Character;
-  onPress: () => void;
-};
+type Props = NativeStackScreenProps<RootStackParamList, "Character">;
 
-export function CharacterCard({ character, onPress }: Props) {
+export function CharacterScreen({ route }: Props) {
+  const { id } = route.params;
+  const [character, setCharacter] = useState<Character | null>(null);
+
+  useEffect(() => {
+    async function load() {
+      const data = await getCharacter(String(id));
+      setCharacter(data);
+    }
+    load();
+  }, [id]);
+
+  if (!character) return null;
+
   return (
-    <TouchableOpacity
-      style={[
-        styles.card,
-        { borderLeftColor: getStatusColor(character.status) },
-      ]}
-      onPress={onPress}
-      activeOpacity={0.8}
-    >
+    <View style={styles.container}>
       <Image source={{ uri: character.image }} style={styles.image} />
 
-      <View style={styles.info}>
-        <Text style={styles.name}>{character.name}</Text>
-        <Text style={styles.sub}>
-          {character.species} • {character.status}
-        </Text>
-        <Text style={styles.location}>
-          📍 {character.location?.name ?? "Desconhecido"}
-        </Text>
+      <Text style={styles.name}>{character.name}</Text>
+
+      <View style={styles.card}>
+        <Text>Status: {character.status}</Text>
+        <Text>Espécie: {character.species}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F5F5F5",
+    padding: 16,
+  },
+  image: {
+    width: "100%",
+    height: 280,
+    borderRadius: 20,
+    marginBottom: 16,
+  },
+  name: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 12,
+    textAlign: "center",
+  },
   card: {
-    flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 16,
-    padding: 12,
-    marginBottom: 12,
-    borderLeftWidth: 6,
-
-    // sombra
+    padding: 16,
     elevation: 4,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-  },
-
-  image: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-  },
-
-  info: {
-    marginLeft: 12,
-    flex: 1,
-    justifyContent: "center",
-  },
-
-  name: {
-    fontSize: 16,
-    fontWeight: "700",
-  },
-
-  sub: {
-    fontSize: 13,
-    color: "#666",
-    marginTop: 2,
-  },
-
-  location: {
-    fontSize: 12,
-    color: "#888",
-    marginTop: 4,
   },
 });
