@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { RouteProp } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../types/navigation";
-
+import { useEffect, useState } from "react";
 import { getCharacter } from "../services/rickAndMorty";
+import { getStatusColor } from "../utils/statusColor";
 import { Character } from "../types/character";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Character">;
-
-export function CharacterScreen({ route }: Props) {
+export function CharacterScreen({ route }: any) {
   const { id } = route.params;
   const [character, setCharacter] = useState<Character | null>(null);
 
   useEffect(() => {
     async function load() {
-      const data = await getCharacter(String(id));
+      const data = await getCharacter(id);
       setCharacter(data);
     }
     load();
@@ -29,10 +24,20 @@ export function CharacterScreen({ route }: Props) {
 
       <Text style={styles.name}>{character.name}</Text>
 
-      <View style={styles.card}>
-        <Text>Status: {character.status}</Text>
-        <Text>Espécie: {character.species}</Text>
+      <View
+        style={[
+          styles.statusBadge,
+          { backgroundColor: getStatusColor(character.status) },
+        ]}
+      >
+        <Text style={styles.status}>{character.status}</Text>
       </View>
+
+      <Text style={styles.info}>Species: {character.species}</Text>
+      <Text style={styles.info}>Gender: {character.gender}</Text>
+      <Text style={styles.info}>Origin: {character.origin.name}</Text>
+      <Text style={styles.info}>Location: {character.location.name}</Text>
+      <Text style={styles.info}>Episodes: {character.episode.length}</Text>
     </View>
   );
 }
@@ -40,25 +45,32 @@ export function CharacterScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
-    padding: 16,
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#FFF",
   },
   image: {
-    width: "100%",
-    height: 280,
-    borderRadius: 20,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
     marginBottom: 16,
   },
   name: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 12,
-    textAlign: "center",
+    fontWeight: "700",
   },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 16,
-    padding: 16,
-    elevation: 4,
+  statusBadge: {
+    marginTop: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  status: {
+    color: "#FFF",
+    fontWeight: "600",
+  },
+  info: {
+    marginTop: 8,
+    fontSize: 16,
   },
 });

@@ -14,13 +14,13 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Rick & Morty" }}
+          options={{ title: "MortyDex APP" }}
         />
 
         <Stack.Screen
           name="Character"
           component={CharacterScreen}
-          options={{ title: "Detalhes" }}
+          options={{ title: "Details" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
