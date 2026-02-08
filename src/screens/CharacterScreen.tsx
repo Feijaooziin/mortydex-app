@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { RouteProp } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types/navigation";
 
 import { getCharacter } from "../services/rickAndMorty";
 import { Character } from "../types/character";
 
-type Props = {
-  route: RouteProp<{ params: { id: number } }, "params">;
-};
+type Props = NativeStackScreenProps<RootStackParamList, "Character">;
 
 export function CharacterScreen({ route }: Props) {
   const { id } = route.params;
