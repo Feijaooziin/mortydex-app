@@ -1,12 +1,15 @@
-const BASE_URL = "https://rickandmortyapi.com/api";
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "https://rickandmortyapi.com/api",
+});
 
 export async function getCharacters() {
-  const response = await fetch(`${BASE_URL}/character`);
-  const data = await response.json();
-  return data.results;
+  const res = await api.get("/character");
+  return res.data.results; // 🔴 IMPORTANTÍSSIMO
 }
 
 export async function getCharacter(id: string) {
-  const response = await fetch(`${BASE_URL}/character/${id}`);
-  return response.json();
+  const res = await api.get(`/character/${id}`);
+  return res.data;
 }
