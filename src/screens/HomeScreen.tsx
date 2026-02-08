@@ -22,9 +22,8 @@ export function HomeScreen() {
     <View style={styles.container}>
       <FlatList
         data={characters}
-        numColumns={2}
-        keyExtractor={(item) => String(item.id)}
         showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <CharacterCard
             character={item}
