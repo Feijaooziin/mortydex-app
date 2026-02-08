@@ -12,8 +12,8 @@ export function HomeScreen() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<
-    "all" | "Alive" | "Dead" | "unknown"
-  >("all");
+    "All" | "Alive" | "Dead" | "unknown"
+  >("All");
 
   useEffect(() => {
     async function load() {
@@ -28,7 +28,7 @@ export function HomeScreen() {
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       String(c.id).includes(search);
 
-    const matchesStatus = statusFilter === "all" || c.status === statusFilter;
+    const matchesStatus = statusFilter === "All" || c.status === statusFilter;
 
     return matchesSearch && matchesStatus;
   });

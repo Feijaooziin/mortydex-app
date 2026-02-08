@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-type StatusFilter = "all" | "Alive" | "Dead" | "unknown";
+type StatusFilter = "All" | "Alive" | "Dead" | "unknown";
 
 type Props = {
   value: StatusFilter;
@@ -14,8 +14,9 @@ export function StatusPicker({ value, onChange }: Props) {
       <Picker
         selectedValue={value}
         onValueChange={(itemValue) => onChange(itemValue)}
+        style={styles.picker}
       >
-        <Picker.Item label="All statuses" value="all" />
+        <Picker.Item label="All statuses" value="All" />
         <Picker.Item label="Alive" value="Alive" />
         <Picker.Item label="Dead" value="Dead" />
         <Picker.Item label="Unknown" value="unknown" />
@@ -27,12 +28,12 @@ export function StatusPicker({ value, onChange }: Props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFF",
-    borderRadius: 12,
     marginBottom: 10,
     overflow: "hidden",
   },
 
   picker: {
-    height: 48,
+    height: 28,
+    paddingHorizontal: 8,
   },
 });
