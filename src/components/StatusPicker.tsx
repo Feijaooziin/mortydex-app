@@ -1,5 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { getStatusColor } from "../utils/statusColor";
 
 type StatusFilter = "All" | "Alive" | "Dead" | "unknown";
 
@@ -14,12 +15,22 @@ export function StatusPicker({ value, onChange }: Props) {
       <Picker
         selectedValue={value}
         onValueChange={(itemValue) => onChange(itemValue)}
-        style={styles.picker}
       >
-        <Picker.Item label="All statuses" value="All" />
-        <Picker.Item label="Alive" value="Alive" />
-        <Picker.Item label="Dead" value="Dead" />
-        <Picker.Item label="Unknown" value="unknown" />
+        <Picker.Item label="All statuses" value="All" color="#000" />
+
+        <Picker.Item
+          label="Alive"
+          value="Alive"
+          color={getStatusColor("Alive")}
+        />
+
+        <Picker.Item label="Dead" value="Dead" color={getStatusColor("Dead")} />
+
+        <Picker.Item
+          label="Unknown"
+          value="unknown"
+          color={getStatusColor("unknown")}
+        />
       </Picker>
     </View>
   );
@@ -30,10 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     marginBottom: 10,
     overflow: "hidden",
-  },
-
-  picker: {
-    height: 28,
-    paddingHorizontal: 8,
   },
 });
