@@ -5,6 +5,7 @@ export interface Character {
   species: string;
   gender: string;
   image: string;
+  created: string;
 
   origin: {
     name: string;
@@ -14,5 +15,10 @@ export interface Character {
     name: string;
   };
 
-  episode: string[];
+  episode: string[]; // URLs
+}
+
+export interface CharacterDetails extends Character {
+  firstEpisodeName: string;
+  createdYear: string;
 }
