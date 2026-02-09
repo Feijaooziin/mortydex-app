@@ -14,7 +14,7 @@ export function SearchBar({ value, onChange }: Props) {
         value={value}
         onChangeText={onChange}
         style={styles.input}
-        placeholderTextColor="#999"
+        placeholderTextColor="#EEE"
       />
 
       {value.length > 0 && (
@@ -23,7 +23,7 @@ export function SearchBar({ value, onChange }: Props) {
           style={styles.clearButton}
           activeOpacity={0.7}
         >
-          <MaterialIcons name="close" size={22} color="#666" />
+          <MaterialIcons name="close" size={24} color="#EEE" />
         </TouchableOpacity>
       )}
     </View>
@@ -34,21 +34,25 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     marginBottom: 10,
+    marginHorizontal: 6,
   },
 
   input: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#999",
     borderRadius: 12,
     paddingVertical: 12,
-    paddingLeft: 14,
+    paddingLeft: 18,
     paddingRight: 40,
     fontSize: 16,
+    color: "#FFF",
+    fontWeight: "900",
+    height: 48,
   },
 
   clearButton: {
     position: "absolute",
     right: 12,
     top: "50%",
-    transform: [{ translateY: -11 }],
+    transform: [{ translateY: -12 }],
   },
 });

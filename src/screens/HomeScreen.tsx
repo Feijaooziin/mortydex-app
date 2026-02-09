@@ -64,6 +64,7 @@ export function HomeScreen() {
       <StatusPicker value={status} onChange={setStatus} />
 
       <FlatList
+        showsVerticalScrollIndicator={false}
         ref={listRef}
         data={characters}
         numColumns={2}
@@ -107,8 +108,8 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: "#F5F5F5",
+    padding: 8,
+    backgroundColor: "#0E0E10",
   },
 
   scrollTopButton: {

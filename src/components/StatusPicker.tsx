@@ -15,6 +15,8 @@ export function StatusPicker({ value, onChange }: Props) {
       <Picker
         selectedValue={value}
         onValueChange={(itemValue) => onChange(itemValue)}
+        dropdownIconColor={"#FFF"}
+        style={styles.picker}
       >
         <Picker.Item label="All statuses" value="All" color="#000" />
 
@@ -38,8 +40,15 @@ export function StatusPicker({ value, onChange }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFF",
+    backgroundColor: "#999",
     marginBottom: 10,
     overflow: "hidden",
+    paddingHorizontal: 12,
+    marginHorizontal: 6,
+    borderRadius: 12,
+  },
+
+  picker: {
+    color: "#FFF",
   },
 });
